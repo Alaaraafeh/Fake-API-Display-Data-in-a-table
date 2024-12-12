@@ -113,7 +113,6 @@ sub.style.backgroundColor = "lightgrey"
 sub.style.border = "1px"
 sub.style.borderRadius = "10px"
 sub.style.padding = "10px"
-//document.body.appendChild(sub);
 
 let div = document.createElement("div");
 div.style.display = "flex";
@@ -128,26 +127,19 @@ sub.addEventListener("click",()=>{
     id = inp.value;
     inp.value = "";
     console.log(id);
+    GetById(id)
 })
 
+function GetById(id) {
+    let xreq = new XMLHttpRequest();
+    xreq.open("GET", "https://jsonplaceholder.typicode.com/users/" + id);
+    xreq.send("");
+    xreq.onreadystatechange = function () {
+        if(xreq.readyState === 4 && xreq.status === 200) {
+            let res = JSON.parse(xreq.response); // from json to object
+            alert(JSON.stringify(res)); // from object to string
+        }
+    }
 
-//? Bonus --> get data by Id
-// function GetDataBYID() {
-//     let inp = document.getElementById("databyid").value;
-//     let xhr = new XMLHttpRequest();
-//     xhr.open("GET", "https://jsonplaceholder.typicode.com/posts/" + inp);
-//     xhr.send("");
-//     xhr.onreadystatechange = function () {
-//       if (xhr.readyState === 4 && xhr.status === 200) {
-//         console.log(xhr.response);
-//         let res = JSON.parse(xhr.response);
-//         console.log(res);
-//         document.getElementById("title").innerText = res.title;
-//         document.getElementById("body").innerText = res.body;
-//         // for(let i=0;i<res.length;i++){
-//         //   document.getElementById("res").innerText += res[i]["title"]
-//         // }
-//       }
-//     };
-//   }
+}
 
